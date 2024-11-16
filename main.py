@@ -56,3 +56,21 @@
 # helper = helper("homework")
 # print(helper("cleaning"))
 # print(helper("driving"))
+
+def checker(*exc_types):
+    def checker(function):
+        def checker(*args, **kwargs):
+            try:
+                result = function(*args, **kwargs)
+            except (exc_types) as e:
+                print(f"We have problems {e}")
+            else:
+                print(f"No problems. Result - {result}")
+        return checker
+    return checker
+
+@checker(NameError, TypeError, SyntaxError)
+def calculate(expe):
+    return eval(expe)
+
+calculate("2*5")
